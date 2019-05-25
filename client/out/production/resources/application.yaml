@@ -1,4 +1,0 @@
-skipmo:
-  ribbon:
-    eureka:
-      enabled: true

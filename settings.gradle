@@ -1,1 +1,5 @@
 rootProject.name = 'skipmo'
+include('game')
+include('application')
+include('lobby')
+include('eureka')

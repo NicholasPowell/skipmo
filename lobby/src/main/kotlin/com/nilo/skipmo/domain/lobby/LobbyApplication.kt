@@ -44,7 +44,7 @@ open class LobbyApplication {
 
         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
                 .body(
-                        webClientBuilder().baseUrl("http://skipmo").build()
+                        webClientBuilder().baseUrl("http://skipmo:5001").build()
                                 .post()
                                 .uri("/game")
                                 .body(BodyInserters.fromObject(object {
