@@ -1,6 +1,5 @@
 plugins {
     id 'org.springframework.boot'
-    id 'com.palantir.docker'
 }
 
 description = """application"""
@@ -10,15 +9,8 @@ bootJar {
     version =  '0.0.1'
 }
 
-docker {
-    dependsOn bootJar
-    name "skipmo/${bootJar.baseName}"
-    println "==> Docker task for ${name}"
-    files bootJar.archivePath
-}
-
 dependencies {
-    compile project(':game')
+    compile project(':game') 
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.1.2.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version:'2.1.2.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version:'2.1.2.RELEASE'
@@ -44,7 +36,7 @@ exclude(module: 'xml-apis')
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'2.1.2.RELEASE'
     testCompile group: 'io.projectreactor', name: 'reactor-test', version:'3.2.5.RELEASE'
     testCompile group: 'org.springframework.security', name: 'spring-security-test', version:'5.1.3.RELEASE'
-    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version:'5.2.0'
-    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version:'5.2.0'
-    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version:'5.2.0'
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version:'5.4.2'
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version:'5.4.2'
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version:'5.4.2'
 }

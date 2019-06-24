@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.web.client.RestTemplate
 
 @SpringBootApplication
-@RibbonClient(name = "skipmo")
+//@RibbonClient(name = "skipmo")
 open class SkipmoApplication {
     @LoadBalanced
     @Bean

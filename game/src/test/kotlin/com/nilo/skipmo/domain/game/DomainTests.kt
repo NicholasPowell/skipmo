@@ -22,19 +22,18 @@ class DomainTests {
         val game = Game("Nick")
         val nick = game.players[0]
 
-        var exception:Exception =assertThrows{
+        assertThrows<Exception> {
             nick.discard( Hand.Slot.ONE, DiscardPile.Index.ONE)
         }
-        exception = assertThrows {
+        assertThrows<Exception> {
             nick.playFromDiscardToBuildPile( DiscardPile.Index.ONE, game.buildPile(BuildPileIndex.ONE ))
         }
-        exception = assertThrows {
+        assertThrows<Exception> {
             nick.draw(game.deck::drawTopCard)
         }
-        exception = assertThrows {
+        assertThrows<Exception> {
             nick.playFromDiscardToBuildPile(DiscardPile.Index.ONE, game.buildPile(BuildPileIndex.ONE))
         }
-
 
     }
 
