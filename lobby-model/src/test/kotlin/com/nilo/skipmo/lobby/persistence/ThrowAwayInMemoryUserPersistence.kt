@@ -10,7 +10,7 @@ internal class ThrowAwayInMemoryUserPersistence : UserPersistence {
 
     override fun findAllLoggedInUsers() : List<User> = users.values.filter{ it.loggedIn }
     override fun findAllUsers() : List<User> = users.values.map{it}
-    override fun findUserByName(name: String) = users.values.first { name == it.name }
+    override fun findUserByName(name: String) = users.values.firstOrNull { name == it.name }
     override fun findUserById(id: String) = users.values.first{ id == it.id}
     override fun getUser(userId: String) : User {
         val user = users[userId]

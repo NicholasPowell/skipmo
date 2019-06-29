@@ -2,12 +2,13 @@ package com.nilo.skipmo.lobby.scenarios
 
 import com.nilo.skipmo.lobby.User
 import com.nilo.skipmo.lobby.facade.GuestLobby
+import com.nilo.skipmo.lobby.service.GuestUserService
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
 internal class LobbyWithUsers(val inMemoryLobby : InMemoryLobby = InMemoryLobby(),
-                              val guestLobby: GuestLobby = inMemoryLobby.guestLobby,
+                              val guestLobby: GuestUserService = inMemoryLobby.guestLobby,
                               val userCredentials: TestUserCredentials = TestUserCredentials() ) {
 
     var users = userCredentials.users.map { guestLobby.createUser(it.first, it.second) }

@@ -15,8 +15,17 @@ bootJar {
 
 dependencies {
     compile project(':lobby-model')
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter', version:'2.1.2.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.1.2.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version:'2.1.2.RELEASE'
+//    compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version:'2.1.6.RELEASE'
+//    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.1.2.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.1.2.RELEASE'
+    
+//    compile group: 'org.springframework.boot', name: 'spring-security', version: '2.1.2.RELEASE'
+
+
+
+    compile group: 'org.springframework.security', name: 'spring-security-oauth2-jose', version: '5.1.5.RELEASE'
+    compile group: 'org.springframework.security', name: 'spring-security-oauth2-resource-server', version: '5.1.5.RELEASE'
 
     compile group: 'org.jetbrains.kotlin', name: 'kotlin-reflect', version:'1.2.71'
     compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk8', version:'1.2.71'
@@ -25,8 +34,12 @@ dependencies {
 
 //    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client', version:'2.1.1.RELEASE'
 //    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-ribbon', version:'2.1.1.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version:'2.1.6.RELEASE'
+
     compile group: 'com.google.code.gson', name: 'gson', version:'2.6.2'
+
+    compile group: 'com.auth0', name: 'auth0-spring-security-api', version: '1.2.3'
+
+    testCompile group: 'org.springframework.security', name: 'spring-security-test', version: '5.1.5.RELEASE'
 
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'2.1.2.RELEASE'
     testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version:'5.4.2'

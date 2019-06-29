@@ -1,5 +1,7 @@
 package com.nilo.skipmo.lobby
 
+import com.nilo.skipmo.lobby.api.LobbyApi
+import com.nilo.skipmo.lobby.api.LobbyApi.Companion.formatUserNotFoundError
 import com.nilo.skipmo.lobby.facade.Lobby
 import com.nilo.skipmo.lobby.persistence.ThrowAwayInMemoryGamePersistence
 import com.nilo.skipmo.lobby.persistence.ThrowAwayInMemoryInvitationPersistence
@@ -11,7 +13,12 @@ import org.junit.jupiter.api.Test
 internal class LobbyFinderTests {
 
     inner class Scenario(
-            val lobby: Lobby = Lobby(ThrowAwayInMemoryGamePersistence(), ThrowAwayInMemoryUserPersistence(), ThrowAwayInMemoryInvitationPersistence()),
+            val lobby: Lobby = Lobby(
+                    ThrowAwayInMemoryGamePersistence(),
+                    ThrowAwayInMemoryUserPersistence(),
+                    ThrowAwayInMemoryInvitationPersistence(),
+                    ::formatUserNotFoundError
+                    ),
             val userLobby: LobbyWithUsers = LobbyWithUsers(),
             val u1: User = userLobby.guestLobby.createUser("FIRST","FIRST"),
             val u2: User = userLobby.guestLobby.createUser("SECOND", "SECOND"),

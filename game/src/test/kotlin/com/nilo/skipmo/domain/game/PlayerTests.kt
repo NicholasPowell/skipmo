@@ -1,8 +1,5 @@
 package com.nilo.skipmo.domain.game
 
-import com.nilo.skipmo.domain.*
-import org.junit.jupiter.api.Test
-
 class PlayerTests {
 
 

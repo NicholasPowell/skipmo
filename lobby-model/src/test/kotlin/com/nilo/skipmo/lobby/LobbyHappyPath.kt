@@ -1,7 +1,9 @@
 package com.nilo.skipmo.lobby
 
+import com.nilo.skipmo.lobby.api.GuestLobbyApi
 import com.nilo.skipmo.lobby.facade.GuestLobby
 import com.nilo.skipmo.lobby.persistence.ThrowAwayInMemoryUserPersistence
+import com.nilo.skipmo.lobby.service.GuestUserService
 import com.nilo.skipmo.lobby.service.UserSearch
 import org.junit.jupiter.api.Test
 
@@ -11,7 +13,7 @@ internal class LobbyHappyPath {
     @Test
     fun happiness()  {
         val userPersistence = ThrowAwayInMemoryUserPersistence()
-        val guestLobby = GuestLobby(userPersistence)
+        val guestLobby = GuestUserService(userPersistence)
 
         var user1 = guestLobby.createUser("User1", "pass")
         var user2 = guestLobby.createUser("User2", "pass")

@@ -7,7 +7,7 @@ internal class UserSearch(private val userPersistence : UserPersistence) {
 
     class SearchBy(val name : String? = null, val id : String? = null)
 
-    fun findUser(searchBy: SearchBy) : User {
+    fun findUser(searchBy: SearchBy) : User? {
 
         if( searchBy.id != null ) {
             return userPersistence.findUserById(searchBy.id)

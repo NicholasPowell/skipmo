@@ -14,8 +14,11 @@ internal interface InvitationPersistence {
         invitations[id] = invitation
         return invitation
     }
-    fun saveInvitation(invitation: Invitation) {
-        invitations[invitation.id] = invitation
-    }
+    fun deleteInvitation(id: String) =
+            invitations.remove(id) ?: throw Exception("Invitation not found for id=$id")
+
+
+
+
 
 }

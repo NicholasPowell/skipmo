@@ -1,11 +1,6 @@
 package com.nilo.skipmo.lobby.service
 
 import com.nilo.skipmo.lobby.*
-import com.nilo.skipmo.lobby.Game
-import com.nilo.skipmo.lobby.GamePersistence
-import com.nilo.skipmo.lobby.Invitation
-import com.nilo.skipmo.lobby.InvitationPersistence
-import com.nilo.skipmo.lobby.User
 
 internal class GameService(private val gamePersistence: GamePersistence,
                            private val invitationPersistence: InvitationPersistence,

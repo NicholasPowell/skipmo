@@ -1,5 +1,7 @@
 package com.nilo.skipmo.domain.lobby
 
+import com.nilo.skipmo.lobby.api.endpoints.GuestEndpoints
+import com.nilo.skipmo.lobby.api.endpoints.UserEndpoints
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.MediaType
@@ -11,24 +13,17 @@ import org.springframework.web.reactive.function.server.router
 open class LobbyRouters(val handler: LobbyHandler = LobbyHandler()) {
 
     @Bean
-    open fun guestRoute() : RouterFunction<ServerResponse> = router {
+    open fun lobbyRoutes() : RouterFunction<ServerResponse> = router {
         accept(MediaType.APPLICATION_JSON).nest {
-            path("/guest").nest {
-                POST("/logIn").invoke(handler::logIn)
-                POST("/createUser").invoke(handler::createUser)
-                GET("/allUsers").invoke(handler::getAllUsers)
-            }
-        }
-    }
+            GET(UserEndpoints.USERS.uri).invoke(handler::getAllUsers)
+            GET(UserEndpoints.DETAILS.uri).invoke(handler::getUserDetails)
+            POST(UserEndpoints.CREATEINVITATION.uri).invoke(handler::invite)
+            PUT(UserEndpoints.ACCEPTINVITATION.uri).invoke(handler::acceptInvite)
+            DELETE(UserEndpoints.DECLINEINVIATION.uri).invoke(handler::declineInvite)
 
-    @Bean
-    open fun userRoute() : RouterFunction<ServerResponse> = router {
-        accept(MediaType.APPLICATION_JSON). nest {
-            path("/user").nest {
-                GET("/{id}").invoke(handler::userDetails)
-                POST("/invite").invoke(handler::invite)
-                POST("/acceptInvite").invoke(handler::acceptInvite)
-            }
+            POST(GuestEndpoints.LOGIN.uri).invoke(handler::logIn)
+            GET(GuestEndpoints.USERS.uri).invoke(handler::getAllUsers)
+            POST(GuestEndpoints.CREATEUSER.uri).invoke(handler::createUser)
         }
     }
 }

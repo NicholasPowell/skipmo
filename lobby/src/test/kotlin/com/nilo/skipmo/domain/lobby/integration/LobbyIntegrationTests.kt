@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.reactive.server.WebTestClient
+import java.util.*
 
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -28,10 +29,10 @@ class LobbyIntegrationTests(@Autowired val client: WebTestClient) {
         lateinit var response: PublicGameInvitation
         with(Scenario()) {
             with(guestScenario) {
-                val uid1 = getId(createUserRequest("user1", "PASS"))
-                val uid2 = getId(createUserRequest("user2", "PASS"))
+                val uid1 = getUserId(createUserRequest(UUID.randomUUID().toString(), "PASS"))
+                val uid2 = getUserId(createUserRequest(UUID.randomUUID().toString(), "PASS"))
                 with(userScenario) {
-                    response = asGameInvitation(getResponse(createInvitation(uid1, uid2)))
+                    response = deserializeInvitation(getResponse(createInvitation(uid1, uid2)))
                 }
                 return response
             }

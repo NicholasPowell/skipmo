@@ -1,7 +1,6 @@
 package com.nilo.skipmo
 
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.context.SpringBootTest
 import java.util.*
 
 // needed, if you use the $-invocations

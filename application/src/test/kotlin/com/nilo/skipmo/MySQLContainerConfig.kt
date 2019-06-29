@@ -1,12 +1,5 @@
 package com.nilo.skipmo
 
-import org.apache.commons.dbcp.BasicDataSourceFactory
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.DependsOn
-import org.testcontainers.containers.MySQLContainer
-import javax.sql.DataSource
-
 //@Configuration
 class MySQLContainerConfig {
 

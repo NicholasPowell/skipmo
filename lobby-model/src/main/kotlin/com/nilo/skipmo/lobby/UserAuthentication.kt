@@ -16,5 +16,5 @@ internal class UserAuthentication {
     private fun logUserIn(user: User) { user.loggedIn = true}
 
     private fun isPasswordCorrect(user: User, password: String) = user.password == password
-    private fun loginFailed() = Exception("User login failed")
+    private fun loginFailed() = Exception("User LOGIN failed")
 }

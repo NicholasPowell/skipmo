@@ -2,6 +2,7 @@ package com.nilo.skipmo.lobby
 
 import com.nilo.skipmo.lobby.facade.GuestLobby
 import com.nilo.skipmo.lobby.scenarios.InMemoryLobby
+import com.nilo.skipmo.lobby.service.GuestUserService
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
@@ -9,7 +10,7 @@ import org.junit.jupiter.api.assertThrows
 
 internal class GuestLobbyTest {
 
-    inner class Scenario(val guestLobby: GuestLobby = createGuestLobby(),
+    inner class Scenario(val guestLobby: GuestUserService = createGuestLobby(),
                          val user: User = createUser(guestLobby),
                          val loggedInUser: User = loginValid(guestLobby) )
 
@@ -24,7 +25,7 @@ internal class GuestLobbyTest {
 
     @Test
     fun failLogInUserNotFound() {
-        assertThrows<NoSuchElementException> {
+        assertThrows<Exception> {
             Scenario(user = createUserWithoutPersisting())
         }
     }
@@ -36,9 +37,9 @@ internal class GuestLobbyTest {
         }
     }
 
-    private fun createUser(guestLobby: GuestLobby) = guestLobby.createUser("Nick", "passtest")
-    private fun loginValid(guestLobby: GuestLobby) = guestLobby.logIn("Nick", "passtest")
-    private fun loginInvalid(guestLobby: GuestLobby) = guestLobby.logIn("Nick", "invalidpassword")
+    private fun createUser(guestLobby: GuestUserService) = guestLobby.createUser("Nick", "passtest")
+    private fun loginValid(guestLobby: GuestUserService) = guestLobby.logIn("Nick", "passtest")
+    private fun loginInvalid(guestLobby: GuestUserService) = guestLobby.logIn("Nick", "invalidpassword")
     private fun createGuestLobby() = InMemoryLobby().guestLobby
     private fun createUserWithoutPersisting() = User("Nick", "12345", "12345", false)
 }

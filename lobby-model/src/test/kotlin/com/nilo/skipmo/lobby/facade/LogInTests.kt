@@ -1,7 +1,7 @@
 package com.nilo.skipmo.lobby.facade
 
-import com.nilo.skipmo.lobby.scenarios.InMemoryLobby
 import com.nilo.skipmo.lobby.persistence.ThrowAwayInMemoryUserPersistence
+import com.nilo.skipmo.lobby.scenarios.InMemoryLobby
 import com.nilo.skipmo.lobby.scenarios.LobbyWithUsers
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
