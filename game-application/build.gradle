@@ -2,7 +2,7 @@ plugins {
     id 'org.springframework.boot'
 }
 
-description = """application"""
+description = """game-application"""
 
 bootJar {
     baseName = 'application'
@@ -10,7 +10,7 @@ bootJar {
 }
 
 dependencies {
-    compile project(':game') 
+    compile project(':game-model') 
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.1.2.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version:'2.1.2.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version:'2.1.2.RELEASE'

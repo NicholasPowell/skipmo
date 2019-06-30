@@ -1,9 +1,7 @@
 group = 'com.nilo.skipmo'
 version = '0.0.1-SNAPSHOT'
 
-description = """game"""
-
-
+description = """game-model"""
 
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter', version:'2.1.2.RELEASE'

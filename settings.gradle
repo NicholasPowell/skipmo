@@ -1,6 +1,6 @@
 rootProject.name = 'skipmo'
-include('game')
-include('application')
+include('game-application')
+include('game-model')
 include('lobby-application')
-include('eureka')
 include('lobby-model')
+include('eureka')
