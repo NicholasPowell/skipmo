@@ -11,6 +11,7 @@ internal class Lobby(
         userPersistence: UserPersistence,
         private val invitationPersistence: InvitationPersistence,
         private val formatUserNotFoundError: (String) -> String = LobbyApi.Companion::formatUserNotFoundError,
+        private val formatMissingInvitationError: (String) -> String = LobbyApi.Companion::formatMissingInvitationError,
         private val gameFactory: GameFactory = GameFactory(),
         private val gameService: GameService = GameService(gamePersistence, invitationPersistence, gameFactory),
         private val userSearch: UserSearch = UserSearch(userPersistence)
@@ -30,7 +31,7 @@ internal class Lobby(
     fun findUserById(id: String) = userSearch.findUser(UserSearch.SearchBy(id=id))
     fun findUsersLoggedIn() = userSearch.findUsersLoggedIn()
     fun findAllUsers() = userSearch.findAllUsers()
-    fun findInvitationById(id: String) = invitationPersistence.getInvitation(id)
+    fun findInvitationById(id: String) = invitationPersistence.getInvitation(id) ?: throw Exception(formatMissingInvitationError(id))
     fun declineInvitationById(id: String) = invitationPersistence.deleteInvitation(id)
 
 

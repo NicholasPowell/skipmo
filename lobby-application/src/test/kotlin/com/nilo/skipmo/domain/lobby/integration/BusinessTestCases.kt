@@ -2,6 +2,7 @@ package com.nilo.skipmo.domain.lobby.integration
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.nilo.skipmo.lobby.api.GuestLobbyApi
+import com.nilo.skipmo.lobby.api.LobbyApi
 import com.nilo.skipmo.lobby.api.domain.PublicGame
 import com.nilo.skipmo.lobby.api.domain.PublicGameInvitation
 import org.junit.jupiter.api.*
@@ -30,7 +31,7 @@ class BusinessTestCases(@Autowired val client: WebTestClient,
     }
 
     @Test
-    fun `user calls fail without valid jwt`() {
+    fun `user call fails without valid jwt`() {
         with(Scenario().userScenario) {
             resetJwt()
             unauthorizedUserCallFailsWith401()
@@ -106,7 +107,7 @@ class BusinessTestCases(@Autowired val client: WebTestClient,
     private fun Scenario.acceptInvitationThrowsNotFoundError(invitation: PublicGameInvitation) {
         acceptInvitation(invitation.id)
                 .jsonPath("\$.message")
-                .isEqualTo(userScenario.createInvitationNotFoundError(invitation.id))
+                .isEqualTo(LobbyApi.formatMissingInvitationError(invitation.id))
     }
 
     private fun Scenario.acceptInvitation(id: String) =

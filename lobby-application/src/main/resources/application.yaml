@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: skipmo-lobby
+  security:
+    oauth2:
+      resourceserver:
+        id: https://skipmo.auth.nilo.com
+        jwk:
+          jwk-set-uri: https://dev-7u2zxlph.auth0.com/.well-known/jwks.json
+          issuer-uri: https://dev-7u2zxlph.auth0.com/
+
+server:
+  port: 5002
+

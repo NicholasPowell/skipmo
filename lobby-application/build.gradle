@@ -5,7 +5,7 @@ plugins {
 group = 'com.nilo.skipmo'
 version = '0.0.1-SNAPSHOT'
 
-description = """lobby"""
+description = """lobby-application"""
 
 bootJar {
     baseName = 'lobby'

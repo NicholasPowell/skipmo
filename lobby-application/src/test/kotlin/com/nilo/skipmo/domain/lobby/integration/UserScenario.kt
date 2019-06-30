@@ -6,7 +6,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.nilo.skipmo.domain.lobby.AcceptInviteRequest
 import com.nilo.skipmo.domain.lobby.InviteRequest
-import com.nilo.skipmo.lobby.api.LobbyApi
+import com.nilo.skipmo.lobby.api.LobbyApi.Companion.formatMissingInvitationError
 import com.nilo.skipmo.lobby.api.domain.PublicGameInvitation
 import com.nilo.skipmo.lobby.api.endpoints.UserEndpoints
 import org.springframework.http.HttpStatus
@@ -71,6 +71,7 @@ class UserScenario(val client: WebTestClient,
                 .exchange()
                 .expectStatus().is2xxSuccessful
                 .expectBody()
+
     }
 
     fun acceptInvitation(id: String, status: HttpStatus = HttpStatus.OK) : WebTestClient.BodyContentSpec {
@@ -86,29 +87,27 @@ class UserScenario(val client: WebTestClient,
                 .expectBody()
     }
 
-
-
     fun declineInvitation(id: String) :WebTestClient.BodyContentSpec {
         return client
                 .delete()
                 .uri(UserEndpoints.DECLINEINVIATION.uri, mapOf("id" to id))
-                .header("Authorization", authToken)
-
-//                .headerForTestToken()
+                .also{ applyAuthHeader(it) }
                 .accept(MediaType.APPLICATION_JSON_UTF8)
-//                .contentType(MediaType.APPLICATION_JSON_UTF8)
-//                .syncBody(DeclineInviteRequest(id))
                 .exchange()
                 .expectStatus().is2xxSuccessful
                 .expectBody()
     }
-
-    fun getResponse(spec: WebTestClient.BodyContentSpec) =
-            String(spec.returnResult().responseBody)
+    fun getResponse(spec: WebTestClient.BodyContentSpec) : String {
+        spec.returnResult().responseHeaders.forEach{
+            println(it.key+":"+it.value)
+        }
+        println("Status ${spec.returnResult().status.value()}")
+        return String(spec.returnResult().responseBody).also { println(it) }
+    }
 
     fun deserializeInvitation(response: String) =
-            gson.fromJson(response, PublicGameInvitation::class.java)
+            jacksonObjectMapper().readValue(response, PublicGameInvitation::class.java)!!
 
-    fun createInvitationNotFoundError(id: String) =LobbyApi.instance.createMissingInvitationError(id)
+    private fun applyAuthHeader(spec: WebTestClient.RequestHeadersSpec<*>) = spec.header("Authorization", authToken)
 
 }

@@ -1,4 +1,4 @@
-/target/
+
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
@@ -16,7 +16,8 @@
 *.iml
 *.ipr
 
-### Gradle ###
 .gradle
-/build/
-**/gradle*/
+build/
+gradle/
+out/
+target/

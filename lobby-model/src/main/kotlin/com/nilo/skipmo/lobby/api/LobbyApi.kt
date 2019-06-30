@@ -15,16 +15,17 @@ class LobbyApi private constructor() {
                 InMemoryGamePersistence(),
                 InMemoryUserPersistence(),
                 InMemoryInvitationPersistence(),
-                ::formatUserNotFoundError)
+                ::formatUserNotFoundError,
+                ::formatMissingInvitationError
+                )
         val instance = LobbyApi()
 
+        fun formatMissingInvitationError(id: String) = "Could not find Invitation for $id"
         fun formatUserNotFoundError(uid: String) = "User not found for uid=$uid"
+
     }
 
-    fun createGame(id: String) =
-            PublicGame(lobby.createGame(lobby.findInvitationById(id) ?: throw Exception(createMissingInvitationError(id))) )
-
-    fun createMissingInvitationError(id: String) = "Could not find Invitation for $id"
+    fun createGame(id: String) = PublicGame(lobby.createGame(lobby.findInvitationById(id)))
 
     fun createGameInvitation(uid1: String, uid2: String) =
             PublicGameInvitation(lobby.createGameInvitation(uid1, uid2))
