@@ -1,27 +1,50 @@
 package com.nilo.skipmo
 
-import com.nilo.skipmo.adapter.GamePort
-import com.nilo.skipmo.adapter.PlayerPort
-import com.nilo.skipmo.adapter.Port
-import com.nilo.skipmo.adapter.SrcDest
+import com.nilo.skipmo.adapter.*
 import com.nilo.skipmo.api.domain.BuildPileIndex
 import com.nilo.skipmo.api.domain.DiscardPileIndex
 import com.nilo.skipmo.api.domain.HandSlotIndex
 import com.nilo.skipmo.model.domain.Game
 import com.nilo.skipmo.model.domain.game.Player
 
-class Adapter : Port {
+class CoreAdapter : Port {
 
-    override fun createGame(p1: String, p2: String): GamePort {
-        return GameAdapter(p1, p2)
-    }
+    override fun createGame(p1: String, p2: String): GamePort = GameAdapter(p1, p2)
 
-    internal inner class GameAdapter(val p1: String, val p2: String) : GamePort {
+    internal inner class GameAdapter(p1: String, p2: String) : GamePort {
         val game = Game(p1, p2)
+
+        override fun getDisplay() = Complete.GameDTO(
+                playerDTOS = game.players.map{
+                            Complete.PlayerDTO(
+                                    name = it.name,
+                                    handDTO = Complete.HandDTO(
+                                            cardDTOS = it.hand.cards.filterNotNull()
+                                                    .map{ card ->  Complete.CardDTO(number = card.number) } ),
+                                    stockPileDTO = Complete.StockPileDTO(
+                                            cardDTOS = it.stockPile.cards.map{ card -> Complete.CardDTO(card.number) } ),
+                                    id = it.id,
+                                    discardPileDTOS = it.discardPiles.map {
+                                        discardPile -> Complete.DiscardPileDTO(
+                                            cardDTOS = discardPile.cards.map{card->Complete.CardDTO(card.number)} )
+                                    }
+                            )
+                        }
+                ,
+                maxHandSize = game.maxHandSize,
+                pileSize = game.pileSize,
+                deckDTO = Complete.DeckDTO(
+                        cardDTOS = game.deck.cards.map{ card->Complete.CardDTO(card.number)},
+                        discards = game.deck.discards.map{ card->Complete.CardDTO(card.number)}),
+                buildPileDTO = listOf(),
+                id = game.id,
+                version = game.version,
+                winner = game.winner?.name
+        )
 
         override fun getPlayerName() = game.currentPlayer.name
 
-        override fun withPlayer(name: String) = if( game.currentPlayer.name == name) PlayerAdapter(game.currentPlayer) else throw Exception("Not current player")
+        override fun withPlayer(id: String) = if( game.currentPlayer.name == id) PlayerAdapter(game.currentPlayer) else throw Exception("Not current player")
 
         internal inner class PlayerAdapter(private val player: Player) : PlayerPort {
             override fun draw(): GamePort {

@@ -14,22 +14,19 @@ interface Port {
 }
 interface GamePort {
     fun getPlayerName() : String
-    @JsonManagedReference
     fun withPlayer(id: String) : PlayerPort
+    fun getDisplay() : Complete.GameDTO
 }
 
+
+
+
 interface PlayerPort {
-    @JsonBackReference
     fun draw() : GamePort
-    @JsonBackReference
     fun moveCardInHand(srcDest: SrcDest) : GamePort
-    @JsonBackReference
     fun playFromDiscardToBuildPile(srcDest: SrcDest) : GamePort
-    @JsonBackReference
     fun playFromHandToBuildPile(srcDest: SrcDest) : GamePort
-    @JsonBackReference
     fun playFromStockPile(src: String) : GamePort
-    @JsonBackReference
     fun discard(srcDest: SrcDest) : GamePort
 }
 

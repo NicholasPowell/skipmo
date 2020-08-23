@@ -1,20 +1,14 @@
+import com.nilo.tasks.*
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     java
     maven
     `java-library`
-    id("org.springframework.boot") version "2.1.3.RELEASE" apply false
-    id("com.palantir.docker") version "0.22.1" apply false
     kotlin("jvm") version "1.3.72"
 }
 
-
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
-}
-
+tasks.withType<KotlinCompile> { kotlinOptions.jvmTarget = "11" }
 
 allprojects {
     apply(plugin = "java")
@@ -26,9 +20,7 @@ allprojects {
 //        targetCompatibility = JavaVersion.VERSION_11
 //    }
 
-    tasks.withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "1.8"
-    }
+    tasks.withType<KotlinCompile> { kotlinOptions.jvmTarget = "11" }
 
     dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.72")

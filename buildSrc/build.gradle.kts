@@ -1,10 +1,17 @@
 plugins {
     `kotlin-dsl`
     kotlin("jvm") version "1.3.72"
+    java
 }
 
 repositories {
-    // The org.jetbrains.kotlin.jvm plugin requires a repository
-    // where to download the Kotlin compiler dependencies from.
+    mavenLocal()
+    mavenCentral()
     jcenter()
+}
+
+dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.72")
+    implementation(gradleApi())
+
 }
